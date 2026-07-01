@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilha — controle de hábitos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar" id="navbar"></header>
+
+<main>
+
+  <!-- ========== NOVO HÁBITO ========== -->
+  <section class="panel">
+    <h2>Novo hábito</h2>
+    <form id="form-habito">
+      <input type="hidden" id="habito-id">
+      <div class="row-3">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" placeholder="Ex: Beber água" required>
+        </div>
+        <div class="field">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="saude">Saúde</option>
+            <option value="estudo">Estudo</option>
+            <option value="lazer">Lazer</option>
+            <option value="bem-estar">Bem-estar</option>
+            <option value="geral">Geral</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="frequencia">Frequência</label>
+          <select id="frequencia">
+            <option value="diario">Diário</option>
+            <option value="semanal">Semanal</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-desc">
+        <div class="field">
+          <label for="descricao">Descrição <span class="optional">(opcional)</span></label>
+          <input type="text" id="descricao" placeholder="Ex: Pelo menos 2 litros por dia">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" id="btn-cancelar" class="btn btn-ghost hidden">Cancelar edição</button>
+        <button type="submit" id="btn-salvar" class="btn btn-primary">Salvar hábito</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ========== SEUS HÁBITOS ========== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Seus hábitos</h2>
+      <div class="filters">
+        <select id="filtro-categoria">
+          <option value="">Todas as categorias</option>
+          <option value="saude">Saúde</option>
+          <option value="estudo">Estudo</option>
+          <option value="lazer">Lazer</option>
+          <option value="bem-estar">Bem-estar</option>
+          <option value="geral">Geral</option>
+        </select>
+        <select id="ordenar">
+          <option value="data_criacao">Mais recentes</option>
+          <option value="nome">Nome (A–Z)</option>
+          <option value="categoria">Categoria</option>
+        </select>
+        <select id="direcao">
+          <option value="desc">Decrescente</option>
+          <option value="asc">Crescente</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="lista-habitos" class="habit-list"></div>
+
+    <div class="pagination">
+      <button id="pag-anterior" class="btn btn-ghost">← Anterior</button>
+      <span id="pag-info" class="pag-info">página 1</span>
+      <button id="pag-proxima" class="btn btn-ghost">Próxima →</button>
+    </div>
+  </section>
+
+  <!-- ========== MARCAR HOJE ========== -->
+  <section class="panel">
+    <h2>Marcar hábito de hoje</h2>
+    <form id="form-registro">
+      <div class="row-3">
+        <div class="field">
+          <label for="registro-habito">Hábito</label>
+          <select id="registro-habito" required></select>
+        </div>
+        <div class="field">
+          <label for="registro-data">Data</label>
+          <input type="date" id="registro-data" required>
+        </div>
+        <div class="field field-checkbox-wrap">
+          <label class="checkbox-label">
+            <input type="checkbox" id="registro-concluido">
+            <span>Concluído</span>
+          </label>
+        </div>
+      </div>
+      <div class="row-desc">
+        <div class="field">
+          <label for="registro-obs">Observação <span class="optional">(opcional)</span></label>
+          <input type="text" id="registro-obs" placeholder="Ex: Tomei 1,5L hoje">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ========== HISTÓRICO ========== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Histórico de registros</h2>
+      <div class="filters">
+        <select id="hist-habito"><option value="">Todos os hábitos</option></select>
+        <input type="date" id="hist-inicio" title="Data inicial">
+        <input type="date" id="hist-fim" title="Data final">
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="table" id="tabela-historico">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Hábito</th>
+            <th>Status</th>
+            <th>Observação</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody-historico"></tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <button id="hist-anterior" class="btn btn-ghost">← Anterior</button>
+      <span id="hist-info" class="pag-info">página 1</span>
+      <button id="hist-proxima" class="btn btn-ghost">Próxima →</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="api.js"></script>
+<script>exigirLogin(); montarNavbar('habitos');</script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar conta — Trilha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-card">
+  <div class="brand brand-center">
+    <span class="brand-mark">●●●○○</span>
+    <span class="brand-name">Trilha</span>
+  </div>
+  <p class="brand-tag">um passo registrado por dia</p>
+
+  <h2>Criar conta</h2>
+  <form id="form-cadastro" class="form-grid form-stack">
+    <div class="field field-wide">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" required autocomplete="name">
+    </div>
+    <div class="field field-wide">
+      <label for="email">Email</label>
+      <input type="email" id="email" required autocomplete="email">
+    </div>
+    <div class="field field-wide">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" required minlength="6" autocomplete="new-password">
+      <span class="field-hint">mínimo 6 caracteres</span>
+    </div>
+    <div class="field field-wide">
+      <button type="submit" class="btn btn-primary btn-full">Criar conta</button>
+    </div>
+  </form>
+
+  <p class="auth-switch">Já tem conta? <a href="/login.html">Entrar</a></p>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="api.js"></script>
+<script>
+document.getElementById('form-cadastro').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value;
+
+  try {
+    const resp = await fetch('/api/auth/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, senha })
+    });
+
+    const texto = await resp.text();
+    let dados;
+    try {
+      dados = texto ? JSON.parse(texto) : {};
+    } catch {
+      throw new Error('O servidor não respondeu corretamente. Verifique se você está acessando pelo http://localhost:3000 (e não abrindo o arquivo direto) e se o terminal do servidor mostra algum erro.');
+    }
+
+    if (!resp.ok) throw new Error(dados.erro || 'Erro ao criar conta');
+
+    salvarSessao(dados.token, dados.usuario);
+    window.location.href = '/index.html';
+  } catch (err) {
+    const toast = document.getElementById('toast');
+    toast.textContent = err.message;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 5000);
+  }
+});
+
+if (getToken()) window.location.href = '/index.html';
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil — Trilha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar" id="navbar"></header>
+
+<main>
+
+  <section class="panel" id="painel-perfil">
+    <h2>Seu perfil</h2>
+    <div class="perfil-info">
+      <div class="perfil-avatar" id="perfil-avatar">?</div>
+      <div>
+        <p class="perfil-nome" id="perfil-nome">—</p>
+        <p class="perfil-email" id="perfil-email">—</p>
+        <p class="perfil-desde" id="perfil-desde">—</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Resumo geral</h2>
+    <div class="stats-grid" id="stats-resumo">
+      <!-- preenchido via JS -->
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Frequência por hábito</h2>
+    <p class="panel-sub">Percentual de dias concluídos em relação ao total de dias registrados.</p>
+    <div id="lista-frequencia" class="freq-list">
+      <!-- preenchido via JS -->
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="api.js"></script>
+<script>exigirLogin(); montarNavbar('perfil');</script>
+<script src="perfil.js"></script>
+</body>
+</html>
