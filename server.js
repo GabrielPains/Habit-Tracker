@@ -9,8 +9,14 @@ const authRouter = require('./routes/auth');
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 app.use(express.json());
+app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/auth', authRouter);

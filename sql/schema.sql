@@ -1,5 +1,4 @@
 -- Schema do banco de dados - Habit Tracker
--- Execute este script no SQL Server antes de iniciar a aplicação
 
 CREATE DATABASE HabitTrackerDB;
 GO
@@ -46,12 +45,6 @@ GO
 CREATE INDEX IX_Habito_Categoria ON Habito(categoria);
 CREATE INDEX IX_Habito_Usuario ON Habito(usuario_id);
 CREATE INDEX IX_Registro_Data ON RegistroHabito(data);
-GO
-
--- Dados de exemplo (opcional): cria um usuário de teste e alguns hábitos
--- Senha do usuário de teste: "123456" (já em hash bcrypt)
-INSERT INTO Usuario (nome, email, senha_hash) VALUES
-('Usuário Teste', 'teste@trilha.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy');
 GO
 
 INSERT INTO Habito (usuario_id, nome, descricao, categoria, frequencia) VALUES
