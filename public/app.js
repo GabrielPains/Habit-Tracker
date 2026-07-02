@@ -1,9 +1,9 @@
-// ---------------- estado ----------------
+
 let paginaHabitos = 1;
 let paginaHistorico = 1;
 const TAMANHO_PAGINA = 5;
 
-// ---------------- utilidades ----------------
+// utilidade
 function mostrarToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
@@ -15,14 +15,15 @@ function formatarData(dataISO) {
   const [ano, mes, dia] = dataISO.split('T')[0].split('-');
   return `${dia}/${mes}/${ano}`;
 }
-// nota: a função api() usada abaixo vem de api.js (já injeta o token de login)
 
-// ---------------- hábitos: listar ----------------
+// a função api() usada abaixo vem de api.js (já injeta o token de login)
+// lista de habitos
 async function carregarHabitos() {
   const categoria = document.getElementById('filtro-categoria').value;
   const ordenar = document.getElementById('ordenar').value;
   const direcao = document.getElementById('direcao').value;
 
+// paginaçao
   const params = new URLSearchParams({
     page: paginaHabitos,
     pageSize: TAMANHO_PAGINA,
@@ -78,7 +79,7 @@ function renderizarHabitos(habitos) {
   );
 }
 
-// ---------------- hábitos: criar / editar ----------------
+// editar habitos e criar 
 function editarHabito(id, habitosAtuais) {
   const h = habitosAtuais.find(x => String(x.id) === String(id));
   if (!h) return;
@@ -125,6 +126,7 @@ async function salvarHabito(e) {
   }
 }
 
+//exluir habitos
 async function excluirHabito(id) {
   const ok = await confirmarAcao('Excluir este hábito e todo o seu histórico? Essa ação não pode ser desfeita.');
   if (!ok) return;
@@ -158,7 +160,7 @@ async function preencherSelectHabitos() {
   }
 }
 
-// ---------------- registros: criar ----------------
+// criar registros
 async function salvarRegistro(e) {
   e.preventDefault();
   const corpo = {
@@ -179,7 +181,7 @@ async function salvarRegistro(e) {
   }
 }
 
-// ---------------- histórico ----------------
+// historico de registros, carregar eles
 async function carregarHistorico() {
   const habitoId = document.getElementById('hist-habito').value;
   const dataInicio = document.getElementById('hist-inicio').value;
@@ -240,7 +242,6 @@ function renderizarHistorico(registros) {
   );
 }
 
-// ---------------- eventos ----------------
 document.getElementById('form-habito').addEventListener('submit', salvarHabito);
 document.getElementById('btn-cancelar').addEventListener('click', limparFormHabito);
 document.getElementById('filtro-categoria').addEventListener('change', () => { paginaHabitos = 1; carregarHabitos(); });

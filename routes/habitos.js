@@ -6,11 +6,9 @@ const autenticar = require('../middleware/auth');
 // todas as rotas de hábitos exigem login
 router.use(autenticar);
 
-// ---------------------------------------------------------
-// GET /api/habitos
-// Atende DBE2: paginação, filtros e ordenação
-// Sempre restrito ao usuário logado (req.usuarioId)
-// ---------------------------------------------------------
+
+
+// paginaçao , filtros e ordenacao
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -107,7 +105,6 @@ router.get('/resumo/estatisticas', async (req, res) => {
   }
 });
 
-// GET /api/habitos/:id
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
@@ -126,9 +123,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// POST /api/habitos -> Inclusão (BD2)
-// ---------------------------------------------------------
+// Post habitos , rota
 router.post('/', async (req, res) => {
   try {
     const { nome, descricao, categoria, frequencia } = req.body;
@@ -157,9 +152,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// PUT /api/habitos/:id -> Alteração (BD2)
-// ---------------------------------------------------------
+// upgrade habitos ,rota
 router.put('/:id', async (req, res) => {
   try {
     const { nome, descricao, categoria, frequencia, ativo } = req.body;
@@ -200,9 +193,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// DELETE /api/habitos/:id -> Exclusão (BD2)
-// ---------------------------------------------------------
+// Delete habito
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();

@@ -6,9 +6,7 @@ const { sql, getPool } = require('../db');
 const autenticar = require('../middleware/auth');
 require('dotenv').config();
 
-// ---------------------------------------------------------
-// POST /api/auth/cadastro
-// ---------------------------------------------------------
+// post de cadastro
 router.post('/cadastro', async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
@@ -52,9 +50,7 @@ router.post('/cadastro', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// POST /api/auth/login
-// ---------------------------------------------------------
+// Post de login
 router.post('/login', async (req, res) => {
   try {
     const { email, senha } = req.body;
@@ -90,24 +86,23 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// GET /api/auth/me -> retorna o usuário logado a partir do token
-// ---------------------------------------------------------
-router.get('/me', autenticar, async (req, res) => {
-  try {
-    const pool = await getPool();
-    const result = await pool.request()
-      .input('id', sql.Int, req.usuarioId)
-      .query('SELECT id, nome, email, data_criacao FROM Usuario WHERE id = @id');
+// porem  nao estou usando, o token salva no localhost, e eu uso o localhost
+// get me. retorna o usuário logado a partir do token
+// router.get('/me', autenticar, async (req, res) => {
+//   try {
+//     const pool = await getPool();
+//     const result = await pool.request()
+//       .input('id', sql.Int, req.usuarioId)
+//       .query('SELECT id, nome, email, data_criacao FROM Usuario WHERE id = @id');
 
-    if (result.recordset.length === 0) {
-      return res.status(404).json({ erro: 'Usuário não encontrado' });
-    }
-    res.json(result.recordset[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ erro: 'Erro ao buscar usuário', detalhe: err.message });
-  }
-});
+//     if (result.recordset.length === 0) {
+//       return res.status(404).json({ erro: 'Usuário não encontrado' });
+//     }
+//     res.json(result.recordset[0]);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ erro: 'Erro ao buscar usuário', detalhe: err.message });
+//   }
+// });
 
 module.exports = router;

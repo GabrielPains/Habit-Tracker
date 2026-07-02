@@ -20,7 +20,7 @@ function logout() {
   window.location.href = '/login.html';
 }
 
-// Garante que só usuário logado acesse a página. Chame no topo de páginas protegidas.
+// Garante que só usuário logado acesse a página  Chame no topo de páginas protegidas.
 function exigirLogin() {
   if (!getToken()) {
     window.location.href = '/login.html';
@@ -75,10 +75,7 @@ function montarNavbar(paginaAtiva) {
   document.getElementById('btn-logout').addEventListener('click', logout);
 }
 
-// ---------------------------------------------------------
-// Modal de confirmação customizado (substitui o confirm() do navegador)
-// Uso: const ok = await confirmarAcao('Excluir este hábito?'); if (!ok) return;
-// ---------------------------------------------------------
+// modal de exclusao
 function confirmarAcao(mensagem, opcoes = {}) {
   return new Promise((resolve) => {
     const titulo = opcoes.titulo || 'Confirmar ação';

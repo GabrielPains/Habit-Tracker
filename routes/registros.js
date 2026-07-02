@@ -5,11 +5,8 @@ const autenticar = require('../middleware/auth');
 
 router.use(autenticar);
 
-// ---------------------------------------------------------
-// GET /api/registros?habitoId=1&dataInicio=2026-06-01&dataFim=2026-06-30&page=1&pageSize=10
-// Atende DBE2: paginação + filtro por período + ordenação por data
-// Sempre restrito aos hábitos do usuário logado
-// ---------------------------------------------------------
+
+// paginaçao e filtro 
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -80,10 +77,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ---------------------------------------------------------
-// POST /api/registros -> marca um hábito como feito/não feito em uma data
-// Verifica antes que o hábito pertence ao usuário logado
-// ---------------------------------------------------------
+// post registro, verifica se pertence ao usuario logado
 router.post('/', async (req, res) => {
   try {
     const { habito_id, data, concluido, observacao } = req.body;
@@ -127,7 +121,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/registros/:id -> Alteração (BD2)
+// upgrade registro
 router.put('/:id', async (req, res) => {
   try {
     const { concluido, observacao } = req.body;
@@ -157,7 +151,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/registros/:id -> Exclusão (BD2)
+// Delete registro
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
