@@ -58,6 +58,8 @@
     <div class="panel-head">
       <h2>Seus hábitos</h2>
       <div class="filters">
+        
+        <label for="filtro-categoria" class="sr-only">Filtrar por categoria</label>
         <select id="filtro-categoria">
           <option value="">Todas as categorias</option>
           <option value="saude">Saúde</option>
@@ -66,11 +68,13 @@
           <option value="bem-estar">Bem-estar</option>
           <option value="geral">Geral</option>
         </select>
+        <label for="ordenar" class="sr-only">Ordenar por</label>
         <select id="ordenar">
           <option value="data_criacao">Mais recentes</option>
           <option value="nome">Nome (A–Z)</option>
           <option value="categoria">Categoria</option>
         </select>
+        <label for="direcao" class="sr-only">Direção da ordenação</label>
         <select id="direcao">
           <option value="desc">Decrescente</option>
           <option value="asc">Crescente</option>
@@ -123,9 +127,12 @@
   <section class="panel">
     <div class="panel-head">
       <h2>Histórico de registros</h2>
+      <label for="hist-habito" class="sr-only">Filtrar por hábito</label>
       <div class="filters">
         <select id="hist-habito"><option value="">Todos os hábitos</option></select>
+        <label for="hist-inicio" class="sr-only">Data inicial</label>
         <input type="date" id="hist-inicio" title="Data inicial">
+        <label for="hist-fim" class="sr-only">Data final</label>
         <input type="date" id="hist-fim" title="Data final">
       </div>
     </div>
