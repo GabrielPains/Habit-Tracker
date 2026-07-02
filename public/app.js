@@ -39,7 +39,7 @@ async function carregarHabitos() {
       `página ${pagination.page} de ${pagination.totalPages || 1} · ${pagination.total} hábito(s)`;
     document.getElementById('pag-anterior').disabled = pagination.page <= 1;
     document.getElementById('pag-proxima').disabled = pagination.page >= pagination.totalPages;
-    await preencherSelectHabitos(data, pagination.total);
+    await preencherSelectHabitos();
   } catch (err) {
     mostrarToast(err.message);
   }
